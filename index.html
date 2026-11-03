@@ -11,71 +11,69 @@
 <main class="wrap">
 <h1>Invoice Forge</h1>
 
-<section class="panel" aria-labelledby="form-title">
-<h2 id="form-title">Data Invoice</h2>
-
-<div class="grid">
-<label class="field">
-<span>Nama Perusahaan</span>
-<input type="text" id="company" placeholder="PT Contoh Jaya" autocomplete="organization">
-</label>
-<label class="field">
-<span>Nama Klien</span>
-<input type="text" id="client" placeholder="Nama Klien" autocomplete="name">
-</label>
-<label class="field">
-<span>Nomor Invoice</span>
-<input type="text" id="invno" placeholder="INV-001">
-</label>
-<label class="field">
-<span>Tanggal</span>
-<input type="date" id="invdate">
-</label>
-<label class="field">
-<span>Jatuh Tempo</span>
-<input type="date" id="duedate">
-</label>
-<label class="field">
-<span>Mata Uang</span>
-<select id="currency">
-<option value="IDR">IDR (Rp)</option>
-<option value="USD">USD ($)</option>
-<option value="EUR">EUR (€)</option>
-</select>
-</label>
-</div>
+<section class="panel" aria-label="Data invoice">
+  <div class="grid">
+    <label class="field">
+      <span>Nomor Invoice</span>
+      <input id="invNumber" type="text" inputmode="text" autocomplete="off" placeholder="INV-0001">
+    </label>
+    <label class="field">
+      <span>Tanggal</span>
+      <input id="invDate" type="date">
+    </label>
+    <label class="field">
+      <span>Nama Klien</span>
+      <input id="clientName" type="text" autocomplete="off" placeholder="Nama klien">
+    </label>
+    <label class="field">
+      <span>Email Klien</span>
+      <input id="clientEmail" type="email" autocomplete="off" placeholder="klien@contoh.com">
+    </label>
+    <label class="field">
+      <span>Nama Perusahaan</span>
+      <input id="bizName" type="text" autocomplete="off" placeholder="Perusahaan Anda">
+    </label>
+    <label class="field">
+      <span>Pajak (%)</span>
+      <input id="taxRate" type="number" inputmode="decimal" min="0" max="100" step="0.01" value="0">
+    </label>
+  </div>
 </section>
 
-<section class="panel" aria-labelledby="items-title">
-<h2 id="items-title">Item</h2>
-<div class="items" id="items"></div>
-<div class="row-actions">
-<button type="button" id="addItem" class="btn primary">Tambah Item</button>
-</div>
+<section class="panel" aria-label="Item invoice">
+  <h2>Item</h2>
+  <div class="table-scroll">
+    <table class="items">
+      <thead>
+        <tr>
+          <th scope="col">Deskripsi</th>
+          <th scope="col">Qty</th>
+          <th scope="col">Harga</th>
+          <th scope="col">Subtotal</th>
+          <th scope="col">Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="itemRows"></tbody>
+    </table>
+  </div>
+  <div class="actions">
+    <button type="button" id="addItem" class="btn primary">Tambah Item</button>
+  </div>
 </section>
 
-<section class="panel" aria-labelledby="tax-title">
-<h2 id="tax-title">Pajak &amp; Total</h2>
-<div class="grid">
-<label class="field">
-<span>Pajak (%)</span>
-<input type="number" id="taxrate" min="0" max="100" step="0.01" value="11" inputmode="decimal">
-</label>
-</div>
-<div class="totals" aria-live="polite">
-<div class="total-row"><span>Subtotal</span><span id="subtotal">Rp 0</span></div>
-<div class="total-row"><span>Pajak</span><span id="taxamount">Rp 0</span></div>
-<div class="total-row grand"><span>Total</span><span id="grand">Rp 0</span></div>
-</div>
-</section>
-
-<section class="panel">
-<div class="row-actions">
-<button type="button" id="printBtn" class="btn primary">Cetak / Simpan PDF</button>
-<button type="button" id="saveBtn" class="btn secondary">Simpan</button>
-<button type="button" id="resetBtn" class="btn secondary">Reset Data</button>
-</div>
-<p class="hint" id="status" role="status"></p>
+<section class="panel" aria-label="Ringkasan">
+  <h2>Ringkasan</h2>
+  <dl class="summary">
+    <div class="row"><dt>Subtotal</dt><dd id="sumSub">0</dd></div>
+    <div class="row"><dt>Pajak</dt><dd id="sumTax">0</dd></div>
+    <div class="row total"><dt>Total</dt><dd id="sumTotal">0</dd></div>
+  </dl>
+  <div class="actions">
+    <button type="button" id="saveBtn" class="btn primary">Simpan ke localStorage</button>
+    <button type="button" id="printBtn" class="btn secondary">Cetak / Simpan PDF</button>
+    <button type="button" id="resetBtn" class="btn secondary">Reset Data</button>
+  </div>
+  <p id="statusMsg" class="status" role="status"></p>
 </section>
 </main>
 </body>

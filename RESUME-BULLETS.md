@@ -1,3 +1,1 @@
-- Membangun Invoice Forge dengan 3 berkas: app.js 11979 B, index.html 2470 B, style.css 4687 B.
-- Menuntaskan QC 44,59 detik dengan 0 temuan di 3 lapis aktif dan lulus.
-- Menutup audit berkas: 0 isu Python, 1 JavaScript, 0 JSON, 0 Lua, 2 lain.
+['Membangun Invoice Forge dengan 3 lapis QC lulus dalam 46,98 detik.', 'Menghasilkan 0 temuan pada QC kode, pengguna, dan visual.', 'Menulis 1 berkas JS dan 2 berkas lain untuk aplikasi web satu halaman.']
