@@ -8,72 +8,88 @@
 <script src="app.js" defer></script>
 </head>
 <body>
-<main class="wrap">
+<main>
 <h1>Invoice Forge</h1>
 
-<section class="panel" aria-label="Data invoice">
+<section class="card" aria-label="Data Invoice">
+  <h2>Data Invoice</h2>
   <div class="grid">
     <label class="field">
       <span>Nomor Invoice</span>
-      <input id="invNumber" type="text" inputmode="text" autocomplete="off" placeholder="INV-0001">
+      <input type="text" id="invNumber" value="INV-0001" autocomplete="off">
     </label>
     <label class="field">
       <span>Tanggal</span>
-      <input id="invDate" type="date">
-    </label>
-    <label class="field">
-      <span>Nama Klien</span>
-      <input id="clientName" type="text" autocomplete="off" placeholder="Nama klien">
-    </label>
-    <label class="field">
-      <span>Email Klien</span>
-      <input id="clientEmail" type="email" autocomplete="off" placeholder="klien@contoh.com">
+      <input type="date" id="invDate" autocomplete="off">
     </label>
     <label class="field">
       <span>Nama Perusahaan</span>
-      <input id="bizName" type="text" autocomplete="off" placeholder="Perusahaan Anda">
+      <input type="text" id="companyName" value="Nama Perusahaan Anda" autocomplete="off">
     </label>
     <label class="field">
-      <span>Pajak (%)</span>
-      <input id="taxRate" type="number" inputmode="decimal" min="0" max="100" step="0.01" value="0">
+      <span>Nama Klien</span>
+      <input type="text" id="clientName" value="Nama Klien" autocomplete="off">
+    </label>
+    <label class="field">
+      <span>Alamat Klien</span>
+      <input type="text" id="clientAddress" value="Alamat Klien" autocomplete="off">
+    </label>
+    <label class="field">
+      <span>Mata Uang</span>
+      <input type="text" id="currency" value="Rp" autocomplete="off">
     </label>
   </div>
 </section>
 
-<section class="panel" aria-label="Item invoice">
+<section class="card" aria-label="Item Invoice">
   <h2>Item</h2>
-  <div class="table-scroll">
-    <table class="items">
+  <div class="table-wrap">
+    <table id="itemsTable">
       <thead>
         <tr>
           <th scope="col">Deskripsi</th>
           <th scope="col">Qty</th>
           <th scope="col">Harga</th>
-          <th scope="col">Subtotal</th>
+          <th scope="col">Jumlah</th>
           <th scope="col">Aksi</th>
         </tr>
       </thead>
-      <tbody id="itemRows"></tbody>
+      <tbody id="itemsBody"></tbody>
     </table>
   </div>
   <div class="actions">
-    <button type="button" id="addItem" class="btn primary">Tambah Item</button>
+    <button type="button" id="addItem" class="btn btn-secondary">Tambah Item</button>
   </div>
 </section>
 
-<section class="panel" aria-label="Ringkasan">
+<section class="card" aria-label="Ringkasan">
   <h2>Ringkasan</h2>
-  <dl class="summary">
-    <div class="row"><dt>Subtotal</dt><dd id="sumSub">0</dd></div>
-    <div class="row"><dt>Pajak</dt><dd id="sumTax">0</dd></div>
-    <div class="row total"><dt>Total</dt><dd id="sumTotal">0</dd></div>
-  </dl>
-  <div class="actions">
-    <button type="button" id="saveBtn" class="btn primary">Simpan ke localStorage</button>
-    <button type="button" id="printBtn" class="btn secondary">Cetak / Simpan PDF</button>
-    <button type="button" id="resetBtn" class="btn secondary">Reset Data</button>
+  <div class="grid">
+    <label class="field">
+      <span>Pajak (%)</span>
+      <input type="number" id="taxRate" value="11" min="0" max="100" step="0.01" autocomplete="off">
+    </label>
+    <label class="field">
+      <span>Diskon (%)</span>
+      <input type="number" id="discountRate" value="0" min="0" max="100" step="0.01" autocomplete="off">
+    </label>
   </div>
-  <p id="statusMsg" class="status" role="status"></p>
+  <dl class="totals">
+    <div class="totals-row"><dt>Subtotal</dt><dd id="subtotal">Rp 0</dd></div>
+    <div class="totals-row"><dt>Diskon</dt><dd id="discount">Rp 0</dd></div>
+    <div class="totals-row"><dt>Pajak</dt><dd id="tax">Rp 0</dd></div>
+    <div class="totals-row totals-grand"><dt>Total</dt><dd id="total">Rp 0</dd></div>
+  </dl>
+</section>
+
+<section class="card" aria-label="Aksi">
+  <div class="actions">
+    <button type="button" id="printBtn" class="btn btn-primary">Cetak / Simpan PDF</button>
+    <button type="button" id="saveBtn" class="btn btn-secondary">Simpan Data</button>
+    <button type="button" id="loadBtn" class="btn btn-secondary">Muat Data</button>
+    <button type="button" id="resetBtn" class="btn btn-secondary">Reset</button>
+  </div>
+  <p id="statusMsg" class="status" role="status" aria-live="polite"></p>
 </section>
 </main>
 </body>

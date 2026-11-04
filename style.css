@@ -3,55 +3,60 @@
 }
 
 html, body {
-  max-width: 100%;
-  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  padding: 24px 16px 48px;
-  background: #0b1220;
+  background-color: #0b1220;
   color: #e2e8f0;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  min-height: 100vh;
 }
 
-.wrap {
-  width: 100%;
-  max-width: 960px;
+main {
+  max-width: 1000px;
   margin: 0 auto;
+  padding: 24px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
 h1 {
-  font-size: 1.75rem;
-  margin: 0;
+  font-size: 1.9rem;
+  margin: 0 0 4px 0;
   color: #e2e8f0;
+  white-space: normal;
   word-break: break-word;
 }
 
 h2 {
-  font-size: 1.15rem;
-  margin: 0 0 12px;
+  font-size: 1.25rem;
+  margin: 0 0 14px 0;
   color: #e2e8f0;
+  white-space: normal;
+  word-break: break-word;
 }
 
-.panel {
-  background: #111a2e;
-  border: 1px solid #1e293b;
+.card {
+  background-color: #111a2e;
+  border: 1px solid #2a3650;
   border-radius: 12px;
-  padding: 18px;
+  padding: 20px;
   width: 100%;
-  min-width: 0;
 }
 
 .grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 16px;
 }
 
 .field {
@@ -60,31 +65,27 @@ h2 {
   gap: 6px;
   flex: 1 1 220px;
   min-width: 0;
+  max-width: 100%;
 }
 
 .field span {
   color: #94a3b8;
   font-size: 0.9rem;
-  word-break: break-word;
-}
-
-input {
-  width: 100%;
-  min-width: 0;
-  padding: 12px 14px;
-  border-radius: 8px;
-  border: 1px solid #334155;
-  background: #0b1220;
-  color: #e2e8f0;
-  font-size: 1rem;
-  font-family: inherit;
   white-space: normal;
   word-break: break-word;
 }
 
-input::placeholder {
-  color: #94a3b8;
-  opacity: 1;
+input {
+  background-color: #0b1220;
+  color: #e2e8f0;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  font-family: inherit;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 input:focus-visible {
@@ -92,46 +93,49 @@ input:focus-visible {
   outline-offset: 2px;
 }
 
-.table-scroll {
+.table-wrap {
   width: 100%;
+  max-width: 100%;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
-table.items {
-  width: 100%;
+table {
   border-collapse: collapse;
+  width: 100%;
   min-width: 560px;
 }
 
-table.items th,
-table.items td {
+th, td {
   text-align: left;
-  padding: 8px 6px;
-  border-bottom: 1px solid #1e293b;
+  padding: 10px 8px;
+  border-bottom: 1px solid #2a3650;
   vertical-align: middle;
-  color: #e2e8f0;
   white-space: normal;
   word-break: break-word;
 }
 
-table.items th {
+th {
   color: #94a3b8;
-  font-size: 0.85rem;
   font-weight: 600;
+  font-size: 0.9rem;
 }
 
 .cell-input {
-  padding: 10px 12px;
+  min-width: 0;
+  width: 100%;
 }
 
-.cell-input.num {
-  text-align: right;
+.qty-input {
+  max-width: 110px;
 }
 
-.subtotal-cell {
+.price-input {
+  max-width: 160px;
+}
+
+.line-total {
+  color: #e2e8f0;
   white-space: nowrap;
-  font-variant-numeric: tabular-nums;
 }
 
 .actions {
@@ -139,6 +143,7 @@ table.items th {
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 16px;
+  max-width: 100%;
 }
 
 .btn {
@@ -157,115 +162,132 @@ table.items th {
   white-space: normal;
   word-break: break-word;
   text-align: center;
-  line-height: 1.25;
-  opacity: 1;
-}
-
-.btn.primary {
-  background: #1d4ed8;
-  color: #ffffff;
-}
-
-.btn.primary:hover {
-  background: #1e40af;
-}
-
-.btn.secondary {
-  background: #334155;
-  color: #f8fafc;
-  border-color: #475569;
-}
-
-.btn.secondary:hover {
-  background: #3f4d63;
+  line-height: 1.2;
+  max-width: 100%;
 }
 
 .btn:focus-visible {
-  outline: 3px solid #93c5fd;
+  outline: 3px solid #60a5fa;
   outline-offset: 3px;
 }
 
-.btn.small {
-  padding: 14px 18px;
+.btn-primary {
+  background-color: #1d4ed8;
+  color: #ffffff;
+  opacity: 1;
 }
 
-.summary {
-  margin: 0;
+.btn-primary:hover {
+  background-color: #1e40af;
+  color: #ffffff;
+}
+
+.btn-secondary {
+  background-color: #334155;
+  color: #f8fafc;
+  opacity: 1;
+}
+
+.btn-secondary:hover {
+  background-color: #475569;
+  color: #f8fafc;
+}
+
+.btn-small {
+  padding: 10px 14px;
+  min-height: 48px;
+  min-width: 48px;
+  font-size: 0.9rem;
+}
+
+.totals {
+  margin: 18px 0 0 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-width: 420px;
-  width: 100%;
+  max-width: 100%;
 }
 
-.summary .row {
+.totals-row {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 8px;
-  border-bottom: 1px dashed #1e293b;
-  padding-bottom: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid #2a3650;
 }
 
-.summary dt {
+.totals-row dt {
   color: #94a3b8;
-}
-
-.summary dd {
-  margin: 0;
-  font-variant-numeric: tabular-nums;
-  color: #e2e8f0;
+  white-space: normal;
   word-break: break-word;
 }
 
-.summary .total dt,
-.summary .total dd {
+.totals-row dd {
+  margin: 0;
   color: #e2e8f0;
+  font-weight: 600;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.totals-grand {
+  border-bottom: none;
+  padding-top: 10px;
+}
+
+.totals-grand dt,
+.totals-grand dd {
+  color: #e2e8f0;
+  font-size: 1.2rem;
   font-weight: 700;
-  font-size: 1.1rem;
 }
 
 .status {
-  min-height: 1.25em;
-  margin: 12px 0 0;
+  margin: 14px 0 0 0;
   color: #94a3b8;
-  word-break: break-word;
   white-space: normal;
+  word-break: break-word;
+  min-height: 1.5em;
 }
 
-@media (max-width: 520px) {
-  body {
-    padding: 16px 10px 40px;
-  }
-  .panel {
+@media (max-width: 600px) {
+  main {
     padding: 14px;
   }
+  .card {
+    padding: 14px;
+  }
+  h1 {
+    font-size: 1.5rem;
+  }
   .btn {
-    width: 100%;
+    flex: 1 1 auto;
   }
 }
 
 @media print {
   body {
-    background: #ffffff;
-    color: #000000;
-    padding: 0;
+    background-color: #ffffff;
+    color: #111111;
   }
-  .panel {
-    background: #ffffff;
-    border-color: #999999;
+  .card {
+    background-color: #ffffff;
+    border-color: #cccccc;
   }
-  .actions,
-  .status {
-    display: none;
+  h1, h2, th, td, dt, dd, span, .line-total, .status {
+    color: #111111 !important;
+  }
+  .actions, #addItem, .btn, .status {
+    display: none !important;
   }
   input {
     border: none;
     background: transparent;
-    color: #000000;
-    padding: 0;
+    color: #111111;
   }
-  h1, h2, th, td, dt, dd, .field span {
-    color: #000000;
+  table {
+    min-width: 0;
   }
 }

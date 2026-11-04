@@ -1,1 +1,1 @@
-['Membangun Invoice Forge dengan 3 lapis QC lulus dalam 46,98 detik.', 'Menghasilkan 0 temuan pada QC kode, pengguna, dan visual.', 'Menulis 1 berkas JS dan 2 berkas lain untuk aplikasi web satu halaman.']
+['Membangun Invoice Forge satu halaman dengan JavaScript, CSS, dan README dalam 4 berkas.', 'Meloloskan 3 lapis QC (kode, pengguna, visual) dalam 81.6 detik tanpa temuan.', 'Menghasilkan 0 temuan QC pada 1 berkas JS, 1 JSON, dan 6 berkas lain.']

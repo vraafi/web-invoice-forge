@@ -26,13 +26,13 @@
    "jumlah_berkas": {
     "py": 0,
     "js": 1,
-    "json": 0,
+    "json": 1,
     "lua": 0,
-    "lain": 2
+    "lain": 6
    },
-   "jumlah_diperiksa": 3,
-   "detik": 2.15,
-   "diperiksa": "2026-11-03T13:57:53+07:00"
+   "jumlah_diperiksa": 8,
+   "detik": 0.73,
+   "diperiksa": "2026-11-04T21:18:50+07:00"
   },
   "visual": {
    "lapis": "visual",
@@ -42,19 +42,39 @@
    "keyakinan": "penuh (deterministik + MLLM)",
    "bounce_ke": null,
    "temuan": [],
-   "catatan": [],
-   "url": "http://127.0.0.1:56242/index.html",
+   "catatan": [
+    "tombol 'Cetak / Simpan PDF' perlu digulir (y=1065) — bukan cacat",
+    "tombol 'Simpan Data' perlu digulir (y=1065) — bukan cacat",
+    "tombol 'Muat Data' perlu digulir (y=1065) — bukan cacat",
+    "tombol 'Reset' perlu digulir (y=1065) — bukan cacat"
+   ],
+   "url": "http://127.0.0.1:53175/index.html",
    "saran_mutu": [],
-   "screenshot": "C:\\Users\\user\\otonom-penuh\\state\\os\\qc_hardcore\\visual\\visual-1793689075.png",
+   "llm_dibatalkan": [],
+   "screenshot": "C:\\Users\\user\\otonom-penuh\\state\\os\\qc_hardcore\\visual\\visual-1793801934.png",
    "dom": {
     "inti": [
      {
       "kunci": "el0",
       "label": "Hapus",
-      "x": 1079,
-      "y": 413,
-      "w": 84,
-      "h": 50,
+      "x": 1067,
+      "y": 484,
+      "w": 71,
+      "h": 48,
+      "terlihat": true,
+      "di_viewport": true,
+      "horizontal_ok": true,
+      "di_lipatan": true,
+      "kontras": 9.9,
+      "ukuran_font": 14.4
+     },
+     {
+      "kunci": "el1",
+      "label": "Tambah Item",
+      "x": 265,
+      "y": 559,
+      "w": 140,
+      "h": 49,
       "terlihat": true,
       "di_viewport": true,
       "horizontal_ok": true,
@@ -63,66 +83,66 @@
       "ukuran_font": 16
      },
      {
-      "kunci": "el1",
-      "label": "Tambah Item",
-      "x": 259,
-      "y": 488,
-      "w": 140,
-      "h": 50,
-      "terlihat": true,
-      "di_viewport": true,
-      "horizontal_ok": true,
-      "di_lipatan": true,
-      "kontras": 6.7,
-      "ukuran_font": 16
-     },
-     {
       "kunci": "el2",
-      "label": "Simpan ke localStorage",
-      "x": 259,
-      "y": 769,
-      "w": 215,
-      "h": 50,
+      "label": "Cetak / Simpan PDF",
+      "x": 265,
+      "y": 1065,
+      "w": 190,
+      "h": 49,
       "terlihat": true,
-      "di_viewport": true,
+      "di_viewport": false,
       "horizontal_ok": true,
-      "di_lipatan": true,
+      "di_lipatan": false,
       "kontras": 6.7,
       "ukuran_font": 16
      },
      {
       "kunci": "el3",
-      "label": "Cetak / Simpan PDF",
-      "x": 486,
-      "y": 769,
-      "w": 190,
-      "h": 50,
+      "label": "Simpan Data",
+      "x": 467,
+      "y": 1065,
+      "w": 139,
+      "h": 49,
       "terlihat": true,
-      "di_viewport": true,
+      "di_viewport": false,
       "horizontal_ok": true,
-      "di_lipatan": true,
+      "di_lipatan": false,
       "kontras": 9.9,
       "ukuran_font": 16
      },
      {
       "kunci": "el4",
-      "label": "Reset Data",
-      "x": 688,
-      "y": 769,
-      "w": 124,
-      "h": 50,
+      "label": "Muat Data",
+      "x": 617,
+      "y": 1065,
+      "w": 123,
+      "h": 49,
       "terlihat": true,
-      "di_viewport": true,
+      "di_viewport": false,
       "horizontal_ok": true,
-      "di_lipatan": true,
+      "di_lipatan": false,
+      "kontras": 9.9,
+      "ukuran_font": 16
+     },
+     {
+      "kunci": "el5",
+      "label": "Reset",
+      "x": 752,
+      "y": 1065,
+      "w": 85,
+      "h": 49,
+      "terlihat": true,
+      "di_viewport": false,
+      "horizontal_ok": true,
+      "di_lipatan": false,
       "kontras": 9.9,
       "ukuran_font": 16
      }
     ],
-    "interaktif": 14,
-    "teks_diukur": 22,
+    "interaktif": 17,
+    "teks_diukur": 27,
     "kontras_min": 6.7,
-    "font_min": 13.6,
+    "font_min": 14.4,
     "lebar": 1440,
     "tinggi": 900
    },
@@ -132,20 +152,20 @@
     "tombol_terpotong": false,
     "warna_salah": false,
     "teks_tak_terbaca": false,
-    "skor": 4,
-    "alasan": "Panel rapi, kontras teks baik, tombol utuh; tipografi label agak kecil",
+    "skor": 5,
+    "alasan": "Tata letak rapi, kontras baik, tombol utuh",
     "lengkap": true,
     "percobaan": 1,
-    "detik": 1.4,
-    "penyedia": "workbuddy-router:workbuddy-4",
-    "akun": "workbuddy-4",
+    "detik": 2.2,
+    "penyedia": "workbuddy-router:workbuddy-7",
+    "akun": "workbuddy-7",
     "http": 200,
     "gambar": 1,
     "jalur": "workbuddy",
     "alat": "MLLM (Router WorkBuddy)"
    },
-   "detik": 3.7,
-   "diperiksa": "2026-11-03T13:57:56+07:00"
+   "detik": 6.22,
+   "diperiksa": "2026-11-04T21:18:56+07:00"
   },
   "pengguna": {
    "lapis": "pengguna",
@@ -225,12 +245,19 @@
      "membingungkan": []
     }
    ],
-   "detik": 41.13,
-   "diperiksa": "2026-11-03T13:58:38+07:00"
+   "detik": 74.65,
+   "diperiksa": "2026-11-04T21:20:11+07:00"
   }
  },
- "detik": 46.98,
- "diperiksa": "2026-11-03T13:58:38+07:00",
+ "override_deterministik": {
+  "diterapkan": false,
+  "hijau": true,
+  "dibatalkan": [],
+  "bertahan": [],
+  "catatan": ""
+ },
+ "detik": 81.6,
+ "diperiksa": "2026-11-04T21:20:11+07:00",
  "target": "C:\\Users\\user\\otonom-penuh\\workspace\\trust-test\\web-invoice-forge",
- "url": "http://127.0.0.1:56242/index.html"
+ "url": "http://127.0.0.1:53175/index.html"
 }

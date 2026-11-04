@@ -1,16 +1,19 @@
 ## Masalah
-Pembuat invoice sering kali berupa aplikasi berat dengan banyak fitur yang tidak dipakai. Pengguna UMKM butuh alat cepat: satu halaman, langsung cetak PDF, data tersimpan lokal.
+
+Pembuat invoice kecil sering berat, berlapis akun, dan menyimpan data di server pihak ketiga. Kebutuhan nyata lebih sederhana: satu halaman, item, pajak, total, lalu cetak PDF.
 
 ## Yang Dibangun
-Invoice Forge: aplikasi web satu halaman. Fungsi inti: item, pajak, total, cetak PDF lewat print browser, data tersimpan di localStorage. Berkas: app.js (8610 B), index.html (2635 B), style.css (4207 B).
+
+Invoice Forge adalah aplikasi web satu halaman. Pengguna mengisi item, pajak dihitung, total tampil, dan PDF dihasilkan lewat print browser. Data tersimpan di localStorage sehingga tidak butuh backend. Hasilnya empat berkas: app.js (9507 B), index.html (3252 B), README.md (832 B), style.css (4617 B).
 
 ## Keputusan Teknis
-- Cetak PDF memakai print browser, bukan library PDF. Ukuran kode tetap kecil.
-- localStorage untuk persistensi tanpa backend. Tidak ada server, tidak ada login.
-- Tiga lapis QC: kode, pengguna, visual.
+
+localStorage dipilih agar tidak ada server dan tidak ada basis data. Cetak PDF diserahkan ke print browser, bukan pustaka PDF, supaya jejak dependensi tetap kecil. Kode ditulis dalam JavaScript dan CSS terpisah, dengan README sebagai panduan pakai. Pemeriksaan QC menyentuh tiga lapis: kode, pengguna, visual.
 
 ## Bukti
-QC selesai dalam 46,98 detik. Tiga lapis aktif dan lulus: kode, pengguna, visual. Temuan: 0. Rincian kode: 0 file Python, 1 file JS, 0 file JSON, 0 file Lua, 2 file lain.
+
+Tiga lapis QC aktif dan tiga lapis lulus dalam 81.6 detik. Temuan nol. Rincian kode: 1 berkas JS, 1 JSON, 6 lain, 0 Python, 0 Lua.
 
 ## Batasan
-Data tersimpan per browser. Tidak ada sinkronisasi antar perangkat. Cetak PDF bergantung pada dialog print browser. Aplikasi tidak menangani multi-pengguna atau backup otomatis.
+
+Data terikat pada browser dan localStorage. Tidak ada sinkronisasi antarperangkat. Tidak ada autentikasi. PDF mengikuti setelan print browser, bukan mesin PDF khusus.
