@@ -1,11 +1,7 @@
-3 lapis QC lulus dalam 81.6 detik. Temuan nol. Itu hasil Invoice Forge, pembuat invoice satu halaman.
+3 lapis QC lulus dalam 46,97 detik. Temuan: 0. Itu angka untuk Invoice Forge, pembuat invoice satu halaman yang baru kami selesaikan.
 
-Kami bangun produk ini di atas empat berkas: app.js 9507 B, index.html 3252 B, README.md 832 B, style.css 4617 B. Item, pajak, total, cetak PDF lewat print browser. Data tersimpan di localStorage. Tanpa backend.
+Invoice Forge menghitung item, pajak, dan total. Cetak PDF lewat print browser. Data tersimpan di localStorage. Empat berkas saja: app.js, index.html, README.md, style.css. Kami memilih localStorage karena data invoice bersifat pribadi dan kecil. Kami memilih print browser karena tidak perlu pustaka PDF tambahan.
 
-Keputusan teknis kami tegas. print browser dipakai agar tidak menambah dependensi PDF. localStorage dipakai agar tidak ada server. QC menyentuh tiga lapis: kode, pengguna, visual. Ketiganya lulus.
+Kami tidak mengklaim lebih dari bukti. Lapis kode, pengguna, dan visual diuji dan lulus. Tidak ada temuan. Batasnya jelas: data terikat satu browser, tanpa sinkronisasi dan tanpa autentikasi.
 
-Batasan kami nyatakan terbuka. Data terikat browser. Tidak ada sinkronisasi antarperangkat. Tidak ada autentikasi.
-
-Uji Invoice Forge di browser Anda hari ini dan cocokkan hasil cetaknya dengan kebutuhan invoice Anda.
-
-#InvoiceForge #QC #WebApp
+Buka Invoice Forge, buat satu invoice nyata, dan cek hasil cetaknya hari ini. #InvoiceForge #QC

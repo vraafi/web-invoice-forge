@@ -1,313 +1,251 @@
-'use strict';
+(function () {
+  'use strict';
 
-var STORAGE_KEY = 'invoiceforge_data_v1';
+  var KEY = 'invoice-forge-v1';
+  var itemCounter = 0;
 
-function $(id) {
-  return document.getElementById(id);
-}
-
-function formatMoney(amount, currency) {
-  var num = Number(amount);
-  if (!isFinite(num)) { num = 0; }
-  var rounded = Math.round(num * 100) / 100;
-  var parts = rounded.toFixed(2).split('.');
-  var intPart = parts[0];
-  var decPart = parts[1];
-  var neg = false;
-  if (intPart.charAt(0) === '-') {
-    neg = true;
-    intPart = intPart.substring(1);
+  function $(id) { return document.getElementById(id); }
+  function rupiah(n) {
+    var v = Math.round((Number(n) || 0) * 100) / 100;
+    return 'Rp ' + v.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
   }
-  var withSep = '';
-  var count = 0;
-  for (var i = intPart.length - 1; i >= 0; i--) {
-    withSep = intPart.charAt(i) + withSep;
-    count++;
-    if (count % 3 === 0 && i > 0) {
-      withSep = '.' + withSep;
+
+  function buatItem(data) {
+    itemCounter += 1;
+    var id = 'item-' + itemCounter;
+    var wrap = document.createElement('div');
+    wrap.className = 'item-row';
+    wrap.dataset.id = id;
+
+    var f1 = document.createElement('div');
+    f1.className = 'field grow';
+    var l1 = document.createElement('label');
+    l1.setAttribute('for', id + '-nama');
+    l1.textContent = 'Nama Item';
+    var i1 = document.createElement('input');
+    i1.type = 'text';
+    i1.id = id + '-nama';
+    i1.className = 'item-nama';
+    i1.placeholder = 'Deskripsi item';
+    i1.setAttribute('autocomplete', 'off');
+    f1.appendChild(l1);
+    f1.appendChild(i1);
+
+    var f2 = document.createElement('div');
+    f2.className = 'field qty';
+    var l2 = document.createElement('label');
+    l2.setAttribute('for', id + '-qty');
+    l2.textContent = 'Qty';
+    var i2 = document.createElement('input');
+    i2.type = 'number';
+    i2.id = id + '-qty';
+    i2.className = 'item-qty';
+    i2.value = '1';
+    i2.min = '0';
+    i2.step = 'any';
+    f2.appendChild(l2);
+    f2.appendChild(i2);
+
+    var f3 = document.createElement('div');
+    f3.className = 'field harga';
+    var l3 = document.createElement('label');
+    l3.setAttribute('for', id + '-harga');
+    l3.textContent = 'Harga Satuan';
+    var i3 = document.createElement('input');
+    i3.type = 'number';
+    i3.id = id + '-harga';
+    i3.className = 'item-harga';
+    i3.value = '0';
+    i3.min = '0';
+    i3.step = 'any';
+    f3.appendChild(l3);
+    f3.appendChild(i3);
+
+    var f4 = document.createElement('div');
+    f4.className = 'field subtotal';
+    var l4 = document.createElement('label');
+    l4.textContent = 'Subtotal';
+    var span = document.createElement('span');
+    span.className = 'item-subtotal';
+    span.textContent = rupiah(0);
+    f4.appendChild(l4);
+    f4.appendChild(span);
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-secondary btn-hapus-item';
+    btn.textContent = 'Hapus';
+
+    if (data) {
+      i1.value = data.nama || '';
+      i2.value = String(data.qty != null ? data.qty : 1);
+      i3.value = String(data.harga != null ? data.harga : 0);
     }
+
+    wrap.appendChild(f1);
+    wrap.appendChild(f2);
+    wrap.appendChild(f3);
+    wrap.appendChild(f4);
+    wrap.appendChild(btn);
+    $('daftar-item').appendChild(wrap);
+    hitung();
   }
-  var cur = currency || '';
-  return (neg ? '-' : '') + cur + (cur ? ' ' : '') + withSep + ',' + decPart;
-}
 
-var state = {
-  items: []
-};
-
-function createRow(item) {
-  var tr = document.createElement('tr');
-
-  var tdDesc = document.createElement('td');
-  var inputDesc = document.createElement('input');
-  inputDesc.type = 'text';
-  inputDesc.className = 'cell-input desc-input';
-  inputDesc.value = item.desc || '';
-  inputDesc.setAttribute('aria-label', 'Deskripsi item');
-  tdDesc.appendChild(inputDesc);
-
-  var tdQty = document.createElement('td');
-  var inputQty = document.createElement('input');
-  inputQty.type = 'number';
-  inputQty.className = 'cell-input qty-input';
-  inputQty.min = '0';
-  inputQty.step = 'any';
-  inputQty.value = item.qty;
-  inputQty.setAttribute('aria-label', 'Jumlah item');
-  tdQty.appendChild(inputQty);
-
-  var tdPrice = document.createElement('td');
-  var inputPrice = document.createElement('input');
-  inputPrice.type = 'number';
-  inputPrice.className = 'cell-input price-input';
-  inputPrice.min = '0';
-  inputPrice.step = 'any';
-  inputPrice.value = item.price;
-  inputPrice.setAttribute('aria-label', 'Harga item');
-  tdPrice.appendChild(inputPrice);
-
-  var tdTotal = document.createElement('td');
-  tdTotal.className = 'line-total';
-  tdTotal.textContent = formatMoney((Number(item.qty) || 0) * (Number(item.price) || 0), $('currency').value);
-
-  var tdAction = document.createElement('td');
-  var removeBtn = document.createElement('button');
-  removeBtn.type = 'button';
-  removeBtn.className = 'btn btn-secondary btn-small';
-  removeBtn.textContent = 'Hapus';
-  removeBtn.setAttribute('aria-label', 'Hapus item');
-  removeBtn.addEventListener('click', function () {
-    var idx = Array.prototype.indexOf.call($('itemsBody').children, tr);
-    if (idx >= 0) {
-      state.items.splice(idx, 1);
-      renderRows();
-      recalc();
-    }
-  });
-  tdAction.appendChild(removeBtn);
-
-  inputDesc.addEventListener('input', function () {
-    var idx = Array.prototype.indexOf.call($('itemsBody').children, tr);
-    if (idx >= 0) { state.items[idx].desc = inputDesc.value; }
-  });
-  inputQty.addEventListener('input', function () {
-    var idx = Array.prototype.indexOf.call($('itemsBody').children, tr);
-    if (idx >= 0) { state.items[idx].qty = inputQty.value; }
-    tdTotal.textContent = formatMoney((Number(inputQty.value) || 0) * (Number(inputPrice.value) || 0), $('currency').value);
-    recalc();
-  });
-  inputPrice.addEventListener('input', function () {
-    var idx = Array.prototype.indexOf.call($('itemsBody').children, tr);
-    if (idx >= 0) { state.items[idx].price = inputPrice.value; }
-    tdTotal.textContent = formatMoney((Number(inputQty.value) || 0) * (Number(inputPrice.value) || 0), $('currency').value);
-    recalc();
-  });
-
-  tr.appendChild(tdDesc);
-  tr.appendChild(tdQty);
-  tr.appendChild(tdPrice);
-  tr.appendChild(tdTotal);
-  tr.appendChild(tdAction);
-  return tr;
-}
-
-function renderRows() {
-  var body = $('itemsBody');
-  body.innerHTML = '';
-  for (var i = 0; i < state.items.length; i++) {
-    body.appendChild(createRow(state.items[i]));
-  }
-}
-
-function calcNumbers() {
-  var subtotal = 0;
-  for (var i = 0; i < state.items.length; i++) {
-    var q = Number(state.items[i].qty) || 0;
-    var p = Number(state.items[i].price) || 0;
-    subtotal += q * p;
-  }
-  var discountRate = Number($('discountRate').value) || 0;
-  var taxRate = Number($('taxRate').value) || 0;
-  if (discountRate < 0) { discountRate = 0; }
-  if (discountRate > 100) { discountRate = 100; }
-  if (taxRate < 0) { taxRate = 0; }
-  if (taxRate > 100) { taxRate = 100; }
-  var discountAmt = subtotal * (discountRate / 100);
-  var afterDiscount = subtotal - discountAmt;
-  var taxAmt = afterDiscount * (taxRate / 100);
-  var total = afterDiscount + taxAmt;
-  return {
-    subtotal: subtotal,
-    discount: discountAmt,
-    tax: taxAmt,
-    total: total
-  };
-}
-
-function recalc() {
-  var c = calcNumbers();
-  var cur = $('currency').value;
-  $('subtotal').textContent = formatMoney(c.subtotal, cur);
-  $('discount').textContent = formatMoney(c.discount, cur);
-  $('tax').textContent = formatMoney(c.tax, cur);
-  $('total').textContent = formatMoney(c.total, cur);
-}
-
-function setStatus(msg) {
-  $('statusMsg').textContent = msg;
-}
-
-function addItem() {
-  state.items.push({ desc: '', qty: 1, price: 0 });
-  renderRows();
-  recalc();
-  var body = $('itemsBody');
-  var lastRow = body.children[body.children.length - 1];
-  if (lastRow) {
-    var inp = lastRow.querySelector('.desc-input');
-    if (inp) { inp.focus(); }
-  }
-}
-
-function collectData() {
-  var data = {
-    invNumber: $('invNumber').value,
-    invDate: $('invDate').value,
-    companyName: $('companyName').value,
-    clientName: $('clientName').value,
-    clientAddress: $('clientAddress').value,
-    currency: $('currency').value,
-    taxRate: $('taxRate').value,
-    discountRate: $('discountRate').value,
-    items: []
-  };
-  for (var i = 0; i < state.items.length; i++) {
-    data.items.push({
-      desc: state.items[i].desc,
-      qty: state.items[i].qty,
-      price: state.items[i].price
-    });
-  }
-  return data;
-}
-
-function applyData(data) {
-  $('invNumber').value = data.invNumber || '';
-  $('invDate').value = data.invDate || '';
-  $('companyName').value = data.companyName || '';
-  $('clientName').value = data.clientName || '';
-  $('clientAddress').value = data.clientAddress || '';
-  $('currency').value = data.currency || 'Rp';
-  $('taxRate').value = data.taxRate !== undefined ? data.taxRate : '11';
-  $('discountRate').value = data.discountRate !== undefined ? data.discountRate : '0';
-  state.items = [];
-  if (Array.isArray(data.items) && data.items.length > 0) {
-    for (var i = 0; i < data.items.length; i++) {
-      state.items.push({
-        desc: data.items[i].desc || '',
-        qty: data.items[i].qty !== undefined ? data.items[i].qty : 1,
-        price: data.items[i].price !== undefined ? data.items[i].price : 0
+  function kumpulkan() {
+    var rows = document.querySelectorAll('.item-row');
+    var items = [];
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      items.push({
+        nama: r.querySelector('.item-nama').value,
+        qty: parseFloat(r.querySelector('.item-qty').value) || 0,
+        harga: parseFloat(r.querySelector('.item-harga').value) || 0
       });
     }
-  } else {
-    state.items.push({ desc: '', qty: 1, price: 0 });
+    return items;
   }
-  renderRows();
-  recalc();
-}
 
-function saveData() {
-  try {
-    var data = collectData();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    setStatus('Data berhasil disimpan ke localStorage.');
-  } catch (e) {
-    setStatus('Gagal menyimpan data: ' + (e && e.message ? e.message : 'kesalahan tidak diketahui'));
+  function hitung() {
+    var rows = document.querySelectorAll('.item-row');
+    var subtotal = 0;
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      var qty = parseFloat(r.querySelector('.item-qty').value) || 0;
+      var harga = parseFloat(r.querySelector('.item-harga').value) || 0;
+      var sub = qty * harga;
+      subtotal += sub;
+      r.querySelector('.item-subtotal').textContent = rupiah(sub);
+    }
+    var pajakPersen = parseFloat($('inv-pajak').value) || 0;
+    var pajak = subtotal * pajakPersen / 100;
+    var total = subtotal + pajak;
+    $('val-subtotal').textContent = rupiah(subtotal);
+    $('val-pajak').textContent = rupiah(pajak);
+    $('val-total').textContent = rupiah(total);
+    return { subtotal: subtotal, pajak: pajak, total: total, pajakPersen: pajakPersen };
   }
-}
 
-function loadData() {
-  try {
-    var raw = localStorage.getItem(STORAGE_KEY);
+  function status(msg) {
+    $('status').textContent = msg;
+  }
+
+  function ambilData() {
+    return {
+      nama: $('inv-nama').value,
+      klien: $('inv-klien').value,
+      nomor: $('inv-nomor').value,
+      tanggal: $('inv-tanggal').value,
+      pajak: $('inv-pajak').value,
+      items: kumpulkan()
+    };
+  }
+
+  function isiData(data) {
+    $('inv-nama').value = data.nama || '';
+    $('inv-klien').value = data.klien || '';
+    $('inv-nomor').value = data.nomor || '';
+    $('inv-tanggal').value = data.tanggal || '';
+    $('inv-pajak').value = data.pajak != null ? String(data.pajak) : '11';
+    $('daftar-item').innerHTML = '';
+    var items = Array.isArray(data.items) ? data.items : [];
+    if (items.length === 0) {
+      buatItem(null);
+    } else {
+      for (var i = 0; i < items.length; i++) buatItem(items[i]);
+    }
+    hitung();
+  }
+
+  function simpan() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(ambilData()));
+      status('Invoice tersimpan di perangkat ini.');
+    } catch (e) {
+      status('Gagal menyimpan: penyimpanan tidak tersedia.');
+    }
+  }
+
+  function muat() {
+    var raw = null;
+    try { raw = localStorage.getItem(KEY); } catch (e) { raw = null; }
     if (!raw) {
-      setStatus('Belum ada data tersimpan. Silakan simpan terlebih dahulu.');
+      isiData({ pajak: '11', items: [{ nama: '', qty: 1, harga: 0 }] });
       return;
     }
-    var parsed = JSON.parse(raw);
-    applyData(parsed);
-    setStatus('Data berhasil dimuat dari localStorage.');
-  } catch (e) {
-    setStatus('Gagal memuat data: ' + (e && e.message ? e.message : 'kesalahan tidak diketahui'));
-  }
-}
-
-function resetData() {
-  state.items = [{ desc: '', qty: 1, price: 0 }];
-  $('invNumber').value = 'INV-0001';
-  $('invDate').value = '';
-  $('companyName').value = 'Nama Perusahaan Anda';
-  $('clientName').value = 'Nama Klien';
-  $('clientAddress').value = 'Alamat Klien';
-  $('currency').value = 'Rp';
-  $('taxRate').value = '11';
-  $('discountRate').value = '0';
-  renderRows();
-  recalc();
-  setStatus('Formulir telah direset.');
-}
-
-function doPrint() {
-  recalc();
-  window.print();
-}
-
-function todayISO() {
-  var d = new Date();
-  var m = d.getMonth() + 1;
-  var day = d.getDate();
-  if (m < 10) { m = '0' + m; }
-  if (day < 10) { day = '0' + day; }
-  return d.getFullYear() + '-' + m + '-' + day;
-}
-
-function init() {
-  $('invDate').value = todayISO();
-
-  state.items = [{ desc: '', qty: 1, price: 0 }];
-
-  var raw = null;
-  try {
-    raw = localStorage.getItem(STORAGE_KEY);
-  } catch (e) {
-    raw = null;
-  }
-  if (raw) {
     try {
-      var parsed = JSON.parse(raw);
-      applyData(parsed);
-      setStatus('Data sebelumnya berhasil dimuat otomatis.');
+      isiData(JSON.parse(raw));
+      status('Invoice tersimpan berhasil dimuat.');
     } catch (e) {
-      renderRows();
-      recalc();
+      isiData({ pajak: '11', items: [{ nama: '', qty: 1, harga: 0 }] });
+      status('Data tersimpan rusak; dimulai invoice baru.');
     }
-  } else {
-    renderRows();
-    recalc();
   }
 
-  $('addItem').addEventListener('click', addItem);
-  $('saveBtn').addEventListener('click', saveData);
-  $('loadBtn').addEventListener('click', loadData);
-  $('resetBtn').addEventListener('click', resetData);
-  $('printBtn').addEventListener('click', doPrint);
+  function baru() {
+    isiData({ pajak: '11', items: [{ nama: '', qty: 1, harga: 0 }] });
+    status('Invoice baru dibuat.');
+  }
 
-  $('taxRate').addEventListener('input', recalc);
-  $('discountRate').addEventListener('input', recalc);
-  $('currency').addEventListener('input', recalc);
-}
+  function hapus() {
+    try {
+      localStorage.removeItem(KEY);
+      status('Data tersimpan dihapus.');
+    } catch (e) {
+      status('Gagal menghapus: penyimpanan tidak tersedia.');
+    }
+  }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
-}
+  function cetak() {
+    hitung();
+    var hasil = hitung();
+    if (hasil.total <= 0) {
+      status('Isi minimal satu item dengan total lebih dari nol sebelum mencetak.');
+      var pertama = document.querySelector('.item-nama');
+      if (pertama) pertama.focus();
+      return;
+    }
+    status('Menyiapkan cetak…');
+    window.print();
+  }
+
+  function init() {
+    muat();
+
+    $('btn-tambah-item').addEventListener('click', function () {
+      buatItem(null);
+      status('Item ditambahkan.');
+      var rows = document.querySelectorAll('.item-row');
+      var last = rows[rows.length - 1];
+      if (last) last.querySelector('.item-nama').focus();
+    });
+
+    $('btn-simpan').addEventListener('click', simpan);
+    $('btn-cetak').addEventListener('click', cetak);
+    $('btn-baru').addEventListener('click', baru);
+    $('btn-hapus').addEventListener('click', hapus);
+
+    $('daftar-item').addEventListener('click', function (ev) {
+      var t = ev.target;
+      if (!t || !t.classList || !t.classList.contains('btn-hapus-item')) return;
+      var row = t.closest('.item-row');
+      if (!row) return;
+      var totalRows = document.querySelectorAll('.item-row').length;
+      if (totalRows <= 1) {
+        status('Minimal harus ada satu item.');
+        return;
+      }
+      row.parentNode.removeChild(row);
+      hitung();
+      status('Item dihapus.');
+    });
+
+    $('daftar-item').addEventListener('input', hitung);
+    $('inv-pajak').addEventListener('input', hitung);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

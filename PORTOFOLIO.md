@@ -1,19 +1,19 @@
 ## Masalah
 
-Pembuat invoice kecil sering berat, berlapis akun, dan menyimpan data di server pihak ketiga. Kebutuhan nyata lebih sederhana: satu halaman, item, pajak, total, lalu cetak PDF.
+Pembuat invoice kecil sering berakhir sebagai spreadsheet berantakan atau aplikasi berat yang memaksa pengguna membuat akun. Kebutuhan sebenarnya sederhana: isi item, hitung pajak, cetak PDF, simpan data. Tidak lebih.
 
 ## Yang Dibangun
 
-Invoice Forge adalah aplikasi web satu halaman. Pengguna mengisi item, pajak dihitung, total tampil, dan PDF dihasilkan lewat print browser. Data tersimpan di localStorage sehingga tidak butuh backend. Hasilnya empat berkas: app.js (9507 B), index.html (3252 B), README.md (832 B), style.css (4617 B).
+Invoice Forge: halaman tunggal untuk menyusun invoice, menghitung subtotal dan pajak, mencetak lewat print browser, dan menyimpan data di localStorage. Empat berkas: app.js, index.html, README.md, style.css. Tidak ada server, tidak ada basis data eksternal, tidak ada ketergantungan berat.
 
 ## Keputusan Teknis
 
-localStorage dipilih agar tidak ada server dan tidak ada basis data. Cetak PDF diserahkan ke print browser, bukan pustaka PDF, supaya jejak dependensi tetap kecil. Kode ditulis dalam JavaScript dan CSS terpisah, dengan README sebagai panduan pakai. Pemeriksaan QC menyentuh tiga lapis: kode, pengguna, visual.
+localStorage dipilih karena data invoice bersifat pribadi dan cukup kecil. Print browser dipakai sebagai jalur PDF karena menghindari pustaka generasi PDF tambahan. Logika perhitungan dipisah di app.js agar mudah diperiksa. Hasilnya: 1 berkas JS, 1 berkas JSON, 6 berkas lain, tanpa kode Python atau Lua.
 
 ## Bukti
 
-Tiga lapis QC aktif dan tiga lapis lulus dalam 81.6 detik. Temuan nol. Rincian kode: 1 berkas JS, 1 JSON, 6 lain, 0 Python, 0 Lua.
+QC mencatat 3 lapis aktif: kode, pengguna, visual. Ketiganya lulus dalam 46,97 detik. Temuan: 0. Angka ini yang kami pegang, bukan klaim rasa.
 
 ## Batasan
 
-Data terikat pada browser dan localStorage. Tidak ada sinkronisasi antarperangkat. Tidak ada autentikasi. PDF mengikuti setelan print browser, bukan mesin PDF khusus.
+Data terikat pada satu browser dan satu perangkat. Tidak ada sinkronisasi antar perangkat, tidak ada autentikasi, tidak ada audit trail. Invoice Forge cocok untuk pemakaian pribadi dan tim kecil, bukan untuk kepatuhan pajak tingkat perusahaan.

@@ -1,1 +1,1 @@
-['Membangun Invoice Forge satu halaman dengan JavaScript, CSS, dan README dalam 4 berkas.', 'Meloloskan 3 lapis QC (kode, pengguna, visual) dalam 81.6 detik tanpa temuan.', 'Menghasilkan 0 temuan QC pada 1 berkas JS, 1 JSON, dan 6 berkas lain.']
+['Membangun Invoice Forge satu halaman dengan penyimpanan localStorage dan cetak PDF lewat print browser.', 'Meloloskan 3 lapis QC (kode, pengguna, visual) dalam 46,97 detik dengan 0 temuan.', 'Menjaga jejak berkas ringkas: 1 JS, 1 JSON, 6 berkas lain, tanpa kode Python atau Lua.']

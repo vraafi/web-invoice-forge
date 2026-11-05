@@ -31,8 +31,8 @@
     "lain": 6
    },
    "jumlah_diperiksa": 8,
-   "detik": 0.73,
-   "diperiksa": "2026-11-04T21:18:50+07:00"
+   "detik": 3.08,
+   "diperiksa": "2026-11-05T21:34:51+07:00"
   },
   "visual": {
    "lapis": "visual",
@@ -42,39 +42,34 @@
    "keyakinan": "penuh (deterministik + MLLM)",
    "bounce_ke": null,
    "temuan": [],
-   "catatan": [
-    "tombol 'Cetak / Simpan PDF' perlu digulir (y=1065) — bukan cacat",
-    "tombol 'Simpan Data' perlu digulir (y=1065) — bukan cacat",
-    "tombol 'Muat Data' perlu digulir (y=1065) — bukan cacat",
-    "tombol 'Reset' perlu digulir (y=1065) — bukan cacat"
-   ],
-   "url": "http://127.0.0.1:53175/index.html",
+   "catatan": [],
+   "url": "http://127.0.0.1:49230/index.html",
    "saran_mutu": [],
    "llm_dibatalkan": [],
-   "screenshot": "C:\\Users\\user\\otonom-penuh\\state\\os\\qc_hardcore\\visual\\visual-1793801934.png",
+   "screenshot": "C:\\Users\\user\\otonom-penuh\\state\\os\\qc_hardcore\\visual\\visual-1793889293.png",
    "dom": {
     "inti": [
      {
       "kunci": "el0",
       "label": "Hapus",
-      "x": 1067,
-      "y": 484,
-      "w": 71,
-      "h": 48,
+      "x": 1076,
+      "y": 290,
+      "w": 94,
+      "h": 56,
       "terlihat": true,
       "di_viewport": true,
       "horizontal_ok": true,
       "di_lipatan": true,
       "kontras": 9.9,
-      "ukuran_font": 14.4
+      "ukuran_font": 16
      },
      {
       "kunci": "el1",
       "label": "Tambah Item",
-      "x": 265,
-      "y": 559,
-      "w": 140,
-      "h": 49,
+      "x": 257,
+      "y": 371,
+      "w": 142,
+      "h": 56,
       "terlihat": true,
       "di_viewport": true,
       "horizontal_ok": true,
@@ -84,65 +79,65 @@
      },
      {
       "kunci": "el2",
-      "label": "Cetak / Simpan PDF",
-      "x": 265,
-      "y": 1065,
-      "w": 190,
-      "h": 49,
+      "label": "Simpan",
+      "x": 257,
+      "y": 771,
+      "w": 102,
+      "h": 56,
       "terlihat": true,
-      "di_viewport": false,
+      "di_viewport": true,
       "horizontal_ok": true,
-      "di_lipatan": false,
+      "di_lipatan": true,
       "kontras": 6.7,
       "ukuran_font": 16
      },
      {
       "kunci": "el3",
-      "label": "Simpan Data",
-      "x": 467,
-      "y": 1065,
-      "w": 139,
-      "h": 49,
+      "label": "Cetak PDF",
+      "x": 371,
+      "y": 771,
+      "w": 122,
+      "h": 56,
       "terlihat": true,
-      "di_viewport": false,
+      "di_viewport": true,
       "horizontal_ok": true,
-      "di_lipatan": false,
-      "kontras": 9.9,
+      "di_lipatan": true,
+      "kontras": 6.7,
       "ukuran_font": 16
      },
      {
       "kunci": "el4",
-      "label": "Muat Data",
-      "x": 617,
-      "y": 1065,
-      "w": 123,
-      "h": 49,
+      "label": "Invoice Baru",
+      "x": 505,
+      "y": 771,
+      "w": 137,
+      "h": 56,
       "terlihat": true,
-      "di_viewport": false,
+      "di_viewport": true,
       "horizontal_ok": true,
-      "di_lipatan": false,
+      "di_lipatan": true,
       "kontras": 9.9,
       "ukuran_font": 16
      },
      {
       "kunci": "el5",
-      "label": "Reset",
-      "x": 752,
-      "y": 1065,
-      "w": 85,
-      "h": 49,
+      "label": "Hapus Tersimpan",
+      "x": 655,
+      "y": 771,
+      "w": 173,
+      "h": 56,
       "terlihat": true,
-      "di_viewport": false,
+      "di_viewport": true,
       "horizontal_ok": true,
-      "di_lipatan": false,
+      "di_lipatan": true,
       "kontras": 9.9,
       "ukuran_font": 16
      }
     ],
-    "interaktif": 17,
-    "teks_diukur": 27,
+    "interaktif": 14,
+    "teks_diukur": 21,
     "kontras_min": 6.7,
-    "font_min": 14.4,
+    "font_min": 14.0,
     "lebar": 1440,
     "tinggi": 900
    },
@@ -152,20 +147,20 @@
     "tombol_terpotong": false,
     "warna_salah": false,
     "teks_tak_terbaca": false,
-    "skor": 5,
-    "alasan": "Tata letak rapi, kontras baik, tombol utuh",
+    "skor": 4,
+    "alasan": "Rapi, kontras ok; placeholder agak pudar",
     "lengkap": true,
     "percobaan": 1,
-    "detik": 2.2,
-    "penyedia": "workbuddy-router:workbuddy-7",
-    "akun": "workbuddy-7",
+    "detik": 5.6,
+    "penyedia": "workbuddy-router:workbuddy-17",
+    "akun": "workbuddy-17",
     "http": 200,
     "gambar": 1,
     "jalur": "workbuddy",
     "alat": "MLLM (Router WorkBuddy)"
    },
-   "detik": 6.22,
-   "diperiksa": "2026-11-04T21:18:56+07:00"
+   "detik": 8.02,
+   "diperiksa": "2026-11-05T21:34:59+07:00"
   },
   "pengguna": {
    "lapis": "pengguna",
@@ -245,8 +240,8 @@
      "membingungkan": []
     }
    ],
-   "detik": 74.65,
-   "diperiksa": "2026-11-04T21:20:11+07:00"
+   "detik": 35.87,
+   "diperiksa": "2026-11-05T21:35:35+07:00"
   }
  },
  "override_deterministik": {
@@ -256,8 +251,8 @@
   "bertahan": [],
   "catatan": ""
  },
- "detik": 81.6,
- "diperiksa": "2026-11-04T21:20:11+07:00",
+ "detik": 46.97,
+ "diperiksa": "2026-11-05T21:35:35+07:00",
  "target": "C:\\Users\\user\\otonom-penuh\\workspace\\trust-test\\web-invoice-forge",
- "url": "http://127.0.0.1:53175/index.html"
+ "url": "http://127.0.0.1:49230/index.html"
 }

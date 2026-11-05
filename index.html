@@ -8,88 +8,63 @@
 <script src="app.js" defer></script>
 </head>
 <body>
-<main>
+<main class="app">
 <h1>Invoice Forge</h1>
 
-<section class="card" aria-label="Data Invoice">
-  <h2>Data Invoice</h2>
-  <div class="grid">
-    <label class="field">
-      <span>Nomor Invoice</span>
-      <input type="text" id="invNumber" value="INV-0001" autocomplete="off">
-    </label>
-    <label class="field">
-      <span>Tanggal</span>
-      <input type="date" id="invDate" autocomplete="off">
-    </label>
-    <label class="field">
-      <span>Nama Perusahaan</span>
-      <input type="text" id="companyName" value="Nama Perusahaan Anda" autocomplete="off">
-    </label>
-    <label class="field">
-      <span>Nama Klien</span>
-      <input type="text" id="clientName" value="Nama Klien" autocomplete="off">
-    </label>
-    <label class="field">
-      <span>Alamat Klien</span>
-      <input type="text" id="clientAddress" value="Alamat Klien" autocomplete="off">
-    </label>
-    <label class="field">
-      <span>Mata Uang</span>
-      <input type="text" id="currency" value="Rp" autocomplete="off">
-    </label>
-  </div>
+<section class="card" aria-labelledby="lbl-data">
+<h2 id="lbl-data" class="sr-only">Data Invoice</h2>
+<div class="grid">
+<div class="field">
+<label for="inv-nama">Nama Perusahaan</label>
+<input id="inv-nama" type="text" placeholder="Nama bisnis Anda" autocomplete="organization">
+</div>
+<div class="field">
+<label for="inv-klien">Nama Klien</label>
+<input id="inv-klien" type="text" placeholder="Nama klien" autocomplete="off">
+</div>
+<div class="field">
+<label for="inv-nomor">Nomor Invoice</label>
+<input id="inv-nomor" type="text" placeholder="INV-001" autocomplete="off">
+</div>
+<div class="field">
+<label for="inv-tanggal">Tanggal</label>
+<input id="inv-tanggal" type="date">
+</div>
+</div>
 </section>
 
-<section class="card" aria-label="Item Invoice">
-  <h2>Item</h2>
-  <div class="table-wrap">
-    <table id="itemsTable">
-      <thead>
-        <tr>
-          <th scope="col">Deskripsi</th>
-          <th scope="col">Qty</th>
-          <th scope="col">Harga</th>
-          <th scope="col">Jumlah</th>
-          <th scope="col">Aksi</th>
-        </tr>
-      </thead>
-      <tbody id="itemsBody"></tbody>
-    </table>
-  </div>
-  <div class="actions">
-    <button type="button" id="addItem" class="btn btn-secondary">Tambah Item</button>
-  </div>
+<section class="card" aria-labelledby="lbl-item">
+<h2 id="lbl-item">Item</h2>
+<div id="daftar-item" class="items"></div>
+<div class="actions">
+<button type="button" id="btn-tambah-item" class="btn btn-secondary">Tambah Item</button>
+</div>
 </section>
 
-<section class="card" aria-label="Ringkasan">
-  <h2>Ringkasan</h2>
-  <div class="grid">
-    <label class="field">
-      <span>Pajak (%)</span>
-      <input type="number" id="taxRate" value="11" min="0" max="100" step="0.01" autocomplete="off">
-    </label>
-    <label class="field">
-      <span>Diskon (%)</span>
-      <input type="number" id="discountRate" value="0" min="0" max="100" step="0.01" autocomplete="off">
-    </label>
-  </div>
-  <dl class="totals">
-    <div class="totals-row"><dt>Subtotal</dt><dd id="subtotal">Rp 0</dd></div>
-    <div class="totals-row"><dt>Diskon</dt><dd id="discount">Rp 0</dd></div>
-    <div class="totals-row"><dt>Pajak</dt><dd id="tax">Rp 0</dd></div>
-    <div class="totals-row totals-grand"><dt>Total</dt><dd id="total">Rp 0</dd></div>
-  </dl>
+<section class="card" aria-labelledby="lbl-total">
+<h2 id="lbl-total">Ringkasan</h2>
+<div class="grid">
+<div class="field">
+<label for="inv-pajak">Pajak (%)</label>
+<input id="inv-pajak" type="number" value="11" min="0" max="100" step="0.1">
+</div>
+</div>
+<div class="summary">
+<div class="summary-row"><span>Subtotal</span><span id="val-subtotal">Rp 0</span></div>
+<div class="summary-row"><span>Pajak</span><span id="val-pajak">Rp 0</span></div>
+<div class="summary-row summary-total"><span>Total</span><span id="val-total">Rp 0</span></div>
+</div>
 </section>
 
-<section class="card" aria-label="Aksi">
-  <div class="actions">
-    <button type="button" id="printBtn" class="btn btn-primary">Cetak / Simpan PDF</button>
-    <button type="button" id="saveBtn" class="btn btn-secondary">Simpan Data</button>
-    <button type="button" id="loadBtn" class="btn btn-secondary">Muat Data</button>
-    <button type="button" id="resetBtn" class="btn btn-secondary">Reset</button>
-  </div>
-  <p id="statusMsg" class="status" role="status" aria-live="polite"></p>
+<section class="card" aria-labelledby="lbl-aksi">
+<h2 id="lbl-aksi" class="sr-only">Aksi</h2>
+<div class="actions">
+<button type="button" id="btn-simpan" class="btn btn-primary">Simpan</button>
+<button type="button" id="btn-cetak" class="btn btn-primary">Cetak PDF</button>
+<button type="button" id="btn-baru" class="btn btn-secondary">Invoice Baru</button>
+<button type="button" id="btn-hapus" class="btn btn-secondary">Hapus Tersimpan</button>
+</div>
+<p id="status" class="status" role="status" aria-live="polite"></p>
 </section>
 </main>
 </body>
